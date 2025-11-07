@@ -1,0 +1,27 @@
+{
+  "name": "tuitris",
+  "version": "1.0.0",
+  "description": "Tetris TUI game with Ink and React",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "tuitris": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "keywords": ["tetris", "tui", "ink", "react"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ink": "^5.0.1",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "typescript": "^5.7.3"
+  }
+}
