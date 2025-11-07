@@ -5,14 +5,14 @@ Tetris TUI game built with Ink and React.
 ## Installation
 
 ```bash
-npm install
-npm run build
+bun install
+bun run build
 ```
 
 ## Usage
 
 ```bash
-npm start
+bun start
 ```
 
 Or run directly:
