@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && node dist/index.js",
+    "start": "bun run build && node dist/index.js",
     "dev": "tsc && node dist/index.js"
   },
   "keywords": ["tetris", "tui", "ink", "react"],
