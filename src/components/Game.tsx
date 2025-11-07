@@ -10,6 +10,7 @@ import {
   hardDrop,
   togglePause,
   getDropSpeed,
+  calculateGhostPosition,
 } from '../game/gameState.js';
 import { BoardComponent } from './Board.js';
 import { Sidebar } from './Sidebar.js';
@@ -137,6 +138,7 @@ export const Game: React.FC = () => {
           currentPiece={gameState.currentPiece}
           currentPosition={gameState.currentPosition}
           currentRotation={gameState.currentRotation}
+          ghostPosition={calculateGhostPosition(gameState)}
         />
         <Sidebar
           nextPiece={gameState.nextPiece}

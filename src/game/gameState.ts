@@ -191,3 +191,26 @@ export function getDropSpeed(level: number): number {
   // Return delay in milliseconds
   return Math.max(100, 1000 - (level - 1) * 100);
 }
+
+export function calculateGhostPosition(state: GameState): Position {
+  if (!state.currentPiece) return state.currentPosition;
+
+  let ghostPosition = { ...state.currentPosition };
+  const shape = state.currentPiece.rotations[state.currentRotation];
+
+  // Move down until collision
+  while (true) {
+    const nextPosition = {
+      x: ghostPosition.x,
+      y: ghostPosition.y + 1,
+    };
+
+    if (isValidPosition(state.board, shape, nextPosition)) {
+      ghostPosition = nextPosition;
+    } else {
+      break;
+    }
+  }
+
+  return ghostPosition;
+}
