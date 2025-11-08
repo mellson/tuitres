@@ -22,6 +22,7 @@ This directory contains all diagrams for Tuitris, following Diagram Driven Devel
 ## Features
 
 - [Game State Management](features/feature-game-state-management.md) - Immutable state architecture showing move validation, line clearing, scoring system, level progression, and game over detection
+- [Ghost Piece Preview](features/feature-ghost-piece-preview.md) - Landing position preview showing exact drop target, reducing placement errors and enabling confident hard drops
 
 ## Diagram Legend
 
@@ -60,6 +61,7 @@ ai/diagrams/
 
 ## Last Updated
 
+**2025-11-08** - Added ghost piece preview feature diagram
 **2025-11-07** - Initial diagram repository created with:
 - System architecture showing terminal UI, game engine, and persistence
 - Complete gameplay journey from start to game over
