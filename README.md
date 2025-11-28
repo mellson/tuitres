@@ -8,19 +8,12 @@ Tetris TUI game built with Ink and React.
 
 ```bash
 bun install
-bun run build
 ```
 
-## Usage
+## How to run the game
 
 ```bash
 bun fun
-```
-
-Or run directly:
-
-```bash
-node dist/index.js
 ```
 
 ## Controls
