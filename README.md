@@ -2,6 +2,8 @@
 
 Tetris TUI game built with Ink and React.
 
+![Tuitris gameplay](assets/gameplay.png)
+
 ## Installation
 
 ```bash

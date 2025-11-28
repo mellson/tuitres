@@ -1,7 +1,7 @@
 # Game State Management Feature
 
 **Type:** Feature Diagram
-**Last Updated:** 2025-11-07
+**Last Updated:** 2025-11-28
 **Related Files:**
 - `src/game/gameState.ts`
 - `src/game/board.ts`
@@ -51,7 +51,10 @@ stateDiagram-v2
                 FoundLines --> RemoveLines: Remove full rows<br/>🔧 Array.filter()
                 RemoveLines --> AddEmpty: Add empty rows at top
                 AddEmpty --> CalcScore: Award points<br/>📊 [100,300,500,800] × level
-                CalcScore --> CheckLevel: Check lines ≥ level × 10
+                CalcScore --> CheckTetris: Check if 4 lines
+                CheckTetris --> TriggerCelebration: 4 lines = Tetris!<br/>📊 IMPACT: Celebration!
+                CheckTetris --> CheckLevel: < 4 lines
+                TriggerCelebration --> CheckLevel: showTetrisCelebration = true
                 CheckLevel --> IncreaseLevel: Increase level<br/>📊 IMPACT: Speed +100ms
                 CheckLevel --> KeepLevel: Same level
                 IncreaseLevel --> [*]
@@ -104,6 +107,13 @@ stateDiagram-v2
         📊 IMPACT: 100% predictable gameplay
     end note
 
+    note left of PieceActive
+        Ghost Piece Preview
+        🔧 calculateGhostPosition()
+        🔧 Drops piece to bottom
+        📊 IMPACT: Plan drops ahead
+    end note
+
     note right of BottomReached
         Scoring System
         1 line: 100 × level
@@ -126,8 +136,10 @@ stateDiagram-v2
 
 - **Zero bugs from mutations**: Pure functions return new state objects, preventing race conditions and glitches
 - **Predictable validation**: Every move validated before state update ensures no illegal positions reach the renderer
+- **Ghost piece preview**: `calculateGhostPosition()` shows landing position, helping players plan drops
 - **Intelligent rotation**: Wall-kick system tries 4 fallback positions, reducing player frustration by 80%+
 - **Fair scoring**: Exponential line-clear rewards (100→300→500→800) incentivize skillful Tetris clears
+- **Tetris celebration**: `showTetrisCelebration` state triggers confetti on 4-line clears
 - **Progressive challenge**: Linear speed increase (1000ms → 100ms) creates natural difficulty curve
 - **Instant pause**: Zero-latency pause with full input blocking prevents accidental moves
 
@@ -150,4 +162,5 @@ stateDiagram-v2
 
 ## Change History
 
+- **2025-11-28:** Added ghost piece preview and Tetris celebration state
 - **2025-11-07:** Initial game state management diagram created

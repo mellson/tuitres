@@ -1,11 +1,13 @@
 # Gameplay User Journey
 
 **Type:** Sequence Diagram
-**Last Updated:** 2025-11-07
+**Last Updated:** 2025-11-28
 **Related Files:**
 - `src/components/Game.tsx`
 - `src/game/gameState.ts`
 - `src/game/board.ts`
+- `src/components/Board.tsx`
+- `src/components/Confetti.tsx`
 
 ## Purpose
 
@@ -26,8 +28,9 @@ sequenceDiagram
     Terminal->>Game: Initialize
     Game->>State: createInitialState()
     State-->>Game: Empty board + first piece
-    Game->>Terminal: Render board
+    Game->>Terminal: Render board + ghost piece
     Terminal-->>Player: Show colorful tetris grid<br/>📊 IMPACT: Instant visual understanding
+    Note over Terminal: Ghost piece shows landing position<br/>📊 IMPACT: Plan drops ahead
 
     Note over Player,Board: Active Gameplay Loop 🎯
     loop Every 1000ms - (level*100ms)
@@ -80,6 +83,13 @@ sequenceDiagram
     alt Lines cleared (1-4)
         Board-->>State: Lines removed + count
         Note over State: Score: [100,300,500,800] × level<br/>📊 IMPACT: Reward skill combos
+        alt 4 lines cleared (Tetris!)
+            State->>State: showTetrisCelebration = true
+            Game->>Terminal: Show Confetti + "TETRIS!" message
+            Terminal-->>Player: Celebratory animation<br/>📊 IMPACT: Rewarding feedback
+            Note over Game: 2 second celebration timer
+            Game->>State: clearTetrisCelebration()
+        end
         State->>State: Check level up (every 10 lines)
         alt Level increased
             Note over State: Increase speed by 100ms<br/>📊 IMPACT: Progressive challenge
@@ -122,9 +132,11 @@ sequenceDiagram
 ## Key Insights
 
 - **Sub-50ms responsiveness**: Immediate visual feedback for all player inputs prevents perceived lag
+- **Ghost piece preview**: Semi-transparent piece at landing position helps players plan drops
 - **Progressive difficulty**: Automatic speed increase every 10 lines keeps players challenged
 - **Intelligent rotation**: Wall-kick system tries 4 alternative positions, reducing frustration from edge rotations
 - **Combo scoring**: 4-line clear (Tetris) awards 800pts × level, rewarding skillful play
+- **Tetris celebration**: Confetti animation + "TETRIS!" message provides satisfying feedback for 4-line clears
 - **Zero-friction restart**: Single key press resets game, encouraging repeated play sessions
 - **Competitive persistence**: Top 10 leaderboard saves across sessions, providing long-term goals
 
@@ -138,4 +150,5 @@ sequenceDiagram
 
 ## Change History
 
+- **2025-11-28:** Added ghost piece preview and Tetris celebration flow
 - **2025-11-07:** Initial gameplay journey diagram created

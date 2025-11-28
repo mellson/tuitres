@@ -6,7 +6,9 @@ This directory contains all diagrams for Tuitris, following Diagram Driven Devel
 
 **Tuitris** is a terminal-based Tetris game built with React/Ink, delivering classic Tetris gameplay with:
 - Instant responsive controls (<50ms input latency)
+- Ghost piece preview showing landing position
 - Progressive difficulty (speed increases every 10 lines)
+- Tetris celebration with confetti animation
 - Persistent high score leaderboard (top 10)
 - Intelligent wall-kick rotation system
 - Pure function state management for bug-free gameplay
@@ -59,6 +61,11 @@ ai/diagrams/
 ```
 
 ## Last Updated
+
+**2025-11-28** - Sync update for recent features:
+- Added ghost piece preview to all diagrams
+- Added Tetris celebration + Confetti component
+- Updated architecture with new UI component
 
 **2025-11-07** - Initial diagram repository created with:
 - System architecture showing terminal UI, game engine, and persistence

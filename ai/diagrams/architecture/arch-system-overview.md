@@ -1,7 +1,7 @@
 # Tuitris System Architecture
 
 **Type:** Architecture Diagram
-**Last Updated:** 2025-11-07
+**Last Updated:** 2025-11-28
 **Related Files:**
 - `src/index.tsx`
 - `src/components/Game.tsx`
@@ -9,6 +9,7 @@
 - `src/game/board.ts`
 - `src/game/pieces.ts`
 - `src/highscore/highscore.ts`
+- `src/components/Confetti.tsx`
 
 ## Purpose
 
@@ -35,9 +36,10 @@ graph TD
         end
 
         subgraph "UI Rendering"
-            BoardComp[Board Component<br/>src/components/Board.tsx<br/>🔧 Renders 20x10 grid]
+            BoardComp[Board Component<br/>src/components/Board.tsx<br/>🔧 Renders 20x10 grid + ghost piece]
             SidebarComp[Sidebar Component<br/>src/components/Sidebar.tsx<br/>🔧 Shows stats]
             GameOverComp[GameOver Component<br/>src/components/GameOver.tsx<br/>🔧 Score submission]
+            ConfettiComp[Confetti Component<br/>src/components/Confetti.tsx<br/>🔧 Tetris celebration animation]
         end
 
         HighScore[HighScore System<br/>src/highscore/highscore.ts<br/>🔧 JSON persistence]
@@ -54,6 +56,7 @@ graph TD
     GameComp -->|Renders| BoardComp
     GameComp -->|Renders| SidebarComp
     GameComp -->|Renders on game end| GameOverComp
+    GameComp -->|Renders on Tetris| ConfettiComp
     BoardComp -->|Displays| UI
     SidebarComp -->|Displays| Feedback
     GameOverComp -->|Save score| HighScore
@@ -69,6 +72,8 @@ graph TD
 - **Progressive difficulty**: Level increases every 10 lines, speeding up gameplay from 1s to 100ms drop time
 - **Error prevention**: Wall-kick rotation system prevents frustrating failed rotations near edges
 - **Visual clarity**: Colored tetromino rendering makes piece identification instant
+- **Ghost piece preview**: Semi-transparent landing preview helps players plan drops
+- **Tetris celebration**: Confetti animation rewards 4-line clears with visual feedback
 
 ## Technical Enablers
 
@@ -80,4 +85,5 @@ graph TD
 
 ## Change History
 
+- **2025-11-28:** Added Confetti component, ghost piece preview, Tetris celebration
 - **2025-11-07:** Initial architecture diagram created
