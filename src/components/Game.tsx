@@ -11,10 +11,12 @@ import {
   togglePause,
   getDropSpeed,
   calculateGhostPosition,
+  clearTetrisCelebration,
 } from '../game/gameState.js';
 import { BoardComponent } from './Board.js';
 import { Sidebar } from './Sidebar.js';
 import { GameOver } from './GameOver.js';
+import { Confetti } from './Confetti.js';
 import {
   loadHighScores,
   saveHighScore,
@@ -36,6 +38,16 @@ export const Game: React.FC = () => {
   useEffect(() => {
     loadHighScores().then(setHighScores);
   }, []);
+
+  // Handle tetris celebration
+  useEffect(() => {
+    if (gameState.showTetrisCelebration) {
+      const timer = setTimeout(() => {
+        setGameState(prev => clearTetrisCelebration(prev));
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [gameState.showTetrisCelebration]);
 
   // Game loop for automatic downward movement
   useEffect(() => {
@@ -132,7 +144,7 @@ export const Game: React.FC = () => {
         </Text>
       </Box>
 
-      <Box>
+      <Box position="relative">
         <BoardComponent
           board={gameState.board}
           currentPiece={gameState.currentPiece}
@@ -146,7 +158,16 @@ export const Game: React.FC = () => {
           lines={gameState.lines}
           level={gameState.level}
         />
+        {gameState.showTetrisCelebration && <Confetti />}
       </Box>
+
+      {gameState.showTetrisCelebration && (
+        <Box marginTop={1} justifyContent="center">
+          <Text color="yellow" bold>
+            * * * TETRIS! * * *
+          </Text>
+        </Box>
+      )}
 
       {gameState.paused && (
         <Box marginTop={1} justifyContent="center">

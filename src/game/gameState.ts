@@ -19,6 +19,7 @@ export interface GameState {
   level: number;
   gameOver: boolean;
   paused: boolean;
+  showTetrisCelebration: boolean;
 }
 
 export function createInitialState(): GameState {
@@ -34,6 +35,7 @@ export function createInitialState(): GameState {
     level: 1,
     gameOver: false,
     paused: false,
+    showTetrisCelebration: false,
   };
 }
 
@@ -153,6 +155,9 @@ function lockAndSpawnNew(state: GameState): GameState {
   const linePoints = [0, 100, 300, 500, 800];
   const newScore = state.score + linePoints[linesCleared] * state.level;
 
+  // Check if Tetris (4 lines)
+  const isTetris = linesCleared === 4;
+
   // Check game over
   if (isGameOver(clearedBoard)) {
     return {
@@ -179,12 +184,17 @@ function lockAndSpawnNew(state: GameState): GameState {
     score: newScore,
     lines: newLines,
     level: newLevel,
+    showTetrisCelebration: isTetris,
   };
 }
 
 export function togglePause(state: GameState): GameState {
   if (state.gameOver) return state;
   return { ...state, paused: !state.paused };
+}
+
+export function clearTetrisCelebration(state: GameState): GameState {
+  return { ...state, showTetrisCelebration: false };
 }
 
 export function getDropSpeed(level: number): number {

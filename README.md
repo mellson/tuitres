@@ -12,7 +12,7 @@ bun run build
 ## Usage
 
 ```bash
-bun start
+bun fun
 ```
 
 Or run directly:
